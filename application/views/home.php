@@ -10,7 +10,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<div class="col-6 text-justify">
 			<h3>Connexion</h3>
-			<form method="POST" action="">
+			<form method="POST" action="<? echo base_url('/welcome/login'); ?>">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Utilisateur</label>
 					<input name="pseudo" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
