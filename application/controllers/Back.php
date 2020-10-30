@@ -19,7 +19,26 @@ class Back extends CI_Controller
         $data['title'] = 'DEMOCRATIE 2.0 - Tableau de bord';
         $user_id = $this->session->userdata('id');
 
-        
+        $this->load->model('Users_model', 'users');
+        $this->load->model('Propositions_model', 'propositions');  
+
+        $data['user'] = $this->users->selectById($user_id);
+        $data['propositions'] = $this->propositions->selectUserProp($user_id);
+        $data['count'] = $this->propositions->countProp($user_id);
+
+        $data['displayprop'] = '';
+
+        if (count($data['propositions']) > 0) {
+            $data['displayprop'] = $this->load->view('partials/user_prop', $data, true);
+        }
+
+        // if (count($data['propositions']) > 0) {
+        //     echo "y a des prop";
+        // } else {
+        //     echo "pas de prop";
+        // }
+
+        // print_r($data);
 
         $this->load->view('partials/header', $data);
         $this->load->view('dashboard', $data);
