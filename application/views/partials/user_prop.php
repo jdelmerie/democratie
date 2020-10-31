@@ -22,8 +22,8 @@
             <td><?=$proposition->pour?></td>
             <td><?=$proposition->contre?></td>
             <? if ($proposition->soumission == 0) { ?>
-            <td><a href="" class="btn btn-primary">Modifier</a></td>
-            <td><a href="" class="btn btn-danger">Supprimer</a></td>
+            <td><a href="/back/edit_prop/<?=$proposition->id?>" class="btn btn-primary">Modifier</a></td>
+            <td><a href="/back/delete_prop/<?=$proposition->id?>" class="btn btn-danger">Supprimer</a></td>
             <?}?>
         </tr>
     </tbody>

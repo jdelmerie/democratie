@@ -13,6 +13,6 @@
         <hr>
 
         <?echo $displayprop ?>
-        <a class="btn btn-success" href="">Ajouter une proposition</a>
+        <a class="btn btn-success" href="/back/new_prop">Ajouter une proposition</a>
     </div>
 </div>
