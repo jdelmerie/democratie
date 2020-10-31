@@ -13,5 +13,33 @@ $config = [
             'rules' => 'required',
         ],
     ],
+
+    'back/add_prop' => [
+        [
+            'field' => 'title',
+            'label' => 'title',
+            'rules' => 'required',
+        ],
+
+        [
+            'field' => 'text',
+            'label' => 'text',
+            'rules' => 'required',
+        ],
+    ],
+
+    'back/edit_done' => [
+        [
+            'field' => 'title',
+            'label' => 'title',
+            'rules' => 'required',
+        ],
+
+        [
+            'field' => 'text',
+            'label' => 'text',
+            'rules' => 'required',
+        ],
+    ],
 ]
 ?>
