@@ -65,7 +65,6 @@ class Welcome extends CI_Controller
             $user_id = $this->db->insert_id();
             $this->sendmail($user_id, $hash, $email);
             redirect('welcome/index');
-            // echo "compté crée, faut valide par mail";
         } else {
             echo "erreur de saisie";
         }
@@ -95,8 +94,8 @@ class Welcome extends CI_Controller
 
     public function checkUser()
     {
-        $id =  $this->input->get('id', TRUE);
-     
+        $id = $this->input->get('id', true);
+
         $this->load->model('Users_model', 'users');
         $user = $this->users->selectById($id);
 
@@ -104,6 +103,34 @@ class Welcome extends CI_Controller
             $data = ['actif' => 1];
             $this->users->validation($id, $data);
             redirect('welcome/index');
+        }
+    }
+
+    public function forgotten_password()
+    {
+        $data['title'] = 'DEMOCRATIE 2.0 - Mot de passe oublié';
+
+        $this->load->view('partials/header', $data);
+        $this->load->view('partials/forgotten_password');
+        $this->load->view('partials/footer');
+    }
+
+    public function new_password()
+    {
+        $this->load->library('form_validation');
+
+        $email = $this->input->post("email");
+        $password = $this->input->post("password");
+
+        if ($this->form_validation->run() == true) {
+            $this->load->model('Users_model', 'users');
+            $user = $this->users->selectByEmail($email);
+            $new_password = password_hash($password, PASSWORD_DEFAULT);
+            $data = ['password' => $new_password];
+            $this->users->updatePwd($data, $email);
+            redirect('dashboard/index');
+        } else {
+            echo "Erreur";
         }
     }
 }

@@ -19,6 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<label for="exampleInputPassword1">Mot de passe</label>
 					<input name="password" type="password" class="form-control" id="exampleInputPassword1">
 				</div>
+				<a href="/welcome/forgotten_password">Mot de passe oublié ?</a><br>
 				<button type="submit" class="btn btn-primary">Se connecter</button>
 			</form>
 		</div>
