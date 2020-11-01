@@ -18,4 +18,16 @@ class Users_model extends CI_Model
         $query = $this->db->get();
         return $query->result()[0];
     }
+
+    public function addUser($data)
+    {
+        $this->db->insert('users', $data);
+    }
+
+    public function validation($user_id, $data)
+    {
+        $this->db->where('id', $user_id);
+        $this->db->set($data);
+        $this->db->update('users');
+    }
 }
