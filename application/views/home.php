@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <h5>Pour vous inscrire à notre plateforme et avoir la chance de voter des propostions, veuillez vous inscrire !</h5>
 		</div>
 
-		<form method="POST" action="">
+		<form method="POST" action="<? echo base_url('/welcome/signin'); ?>">
 			<div class="row">
 				<div class="col-sm-4">
 					<span>Email<input name="email" type="email" class="form-control"></span>
