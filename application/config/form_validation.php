@@ -24,6 +24,20 @@ $config = [
         [
             'field' => 'pseudo',
             'label' => 'pseudo',
+            'rules' => 'required|valid_email',
+        ],
+
+        [
+            'field' => 'password',
+            'label' => 'mot de passe',
+            'rules' => 'required',
+        ],
+    ],
+
+    'welcome/new_password' => [
+        [
+            'field' => 'email',
+            'label' => 'email',
             'rules' => 'required',
         ],
 
