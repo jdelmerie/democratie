@@ -52,5 +52,14 @@ class Propositions_model extends CI_Model
         $this->db->where('id', $prop_id);
         $this->db->delete('propositions');
     }
-    
+
+    public function getAll()
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('propositions', 'users.id = propositions.user_id');
+        $this->db->where('soumission', 1);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
