@@ -24,7 +24,7 @@ $config = [
         [
             'field' => 'pseudo',
             'label' => 'pseudo',
-            'rules' => 'required|valid_email',
+            'rules' => 'required',
         ],
 
         [
@@ -72,6 +72,14 @@ $config = [
         [
             'field' => 'text',
             'label' => 'text',
+            'rules' => 'required',
+        ],
+    ],
+
+    'back/add_comment' => [
+        [
+            'field' => 'comment',
+            'label' => 'comment',
             'rules' => 'required',
         ],
     ],

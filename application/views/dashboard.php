@@ -8,14 +8,12 @@
         </div>
     </div>
     <div class="pt-3">
-        <h2>Vos propositions</h2>
+        <h3>Vos propositions</h3>
         <p>Nombre de propositions : <?=$count?></p>
         <hr>
 
         <?echo $displayuserprop ?>
         <a class="btn btn-success" href="/back/new_prop">Ajouter une proposition</a>
     </div>
-    <hr>
-    <h2>Propositions soumises au vote</h2>
     <?echo $displayprop ?>
 </div>
