@@ -8,7 +8,7 @@ class Welcome extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'DEMOCRATIE 2.0';
+        $data['title'] = 'Démocratie 2.0';
 
         $this->load->view('partials/header', $data);
         $this->load->view('home');
@@ -108,7 +108,7 @@ class Welcome extends CI_Controller
 
     public function forgotten_password()
     {
-        $data['title'] = 'DEMOCRATIE 2.0 - Mot de passe oublié';
+        $data['title'] = 'Démocratie 2.0 - Mot de passe oublié';
 
         $this->load->view('partials/header', $data);
         $this->load->view('partials/forgotten_password');

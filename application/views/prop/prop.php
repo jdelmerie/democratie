@@ -16,13 +16,19 @@
         <li>Pour : <?=$prop->pour?></li>
         <li>Contre : <?=$prop->contre?></li>
     </ul>
-    <p class="text-danger"><strong><?echo $vote ?></strong></p>
+    <p class="text-danger font-weight-bold"><?echo $vote ?></p>
     <hr>
     <h4>Ajouter un commentaire</h4>
-    <form method="POST">
+    <form method="POST" action="<?echo base_url("back/add_comment/$prop->id") ?>">
         <div class="form-group">
             <textarea name="comment" class="form-control" rows="3" placeholder="Laisser un commentaire"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Publier">
     </form>
+
+
+    <?echo $displaycom ?>
+
 </div>
+</div>
+
