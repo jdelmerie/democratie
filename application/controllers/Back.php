@@ -34,7 +34,7 @@ class Back extends CI_Controller
             $data['displayuserprop'] = '';
         }
 
-        if (count($data['allpropositions']) > 0){
+        if (count($data['allpropositions']) > 0) {
             $data['displayprop'] = $this->load->view('prop/all_prop', $data, true);
         } else {
             $data['displayprop'] = '';
@@ -125,32 +125,61 @@ class Back extends CI_Controller
     public function vote_prop($prop_id)
     {
         $data['title'] = "Démocratie 2.0 - Proposition n°$prop_id";
-
+        $user_id = $this->session->userdata('id');
         $this->load->model('Propositions_model', 'propositions');
         $this->load->model('Votes_model', 'votes');
 
         $data['prop'] = $this->propositions->selectById($prop_id);
-        $data['voted'] = $this->votes->checkvote($prop_id, $data['prop']->user_id);
+        $data['voted'] = $this->votes->checkvote($prop_id, $user_id);
 
         $this->load->model('Commentaires_model', 'commentaires');
-        $data['comments'] = $this->commentaires->selectAll($prop_id); 
+        $data['comments'] = $this->commentaires->selectAll($prop_id);
 
-        if (count($data['comments']) > 0){
+        if (count($data['comments']) > 0) {
             $data['displaycom'] = $this->load->view('partials/comments_view', $data, true);
         } else {
             $data['displaycom'] = '';
         }
 
         if ($data['voted'] == 1) {
-            $data['vote'] = 'Vous avez déjà voté pour cette proposition.';
+            $data['novote'] = 'display: block;';
+            $data['vote'] = 'display: none;';
         } else {
-            $data['vote'] = $this->load->view('partials/button_vote', $data, true);
+            $data['vote'] = 'display: block;';
+            $data['novote'] = 'display: none;';
         }
-
 
         $this->load->view('partials/header', $data);
         $this->load->view('prop/prop', $data);
         $this->load->view('partials/footer');
+    }
+
+    public function action()
+    {
+        $user_id = $this->session->userdata('id');
+        $vote = $this->input->get('vote', true);
+        $prop_id = $this->input->get('id', true);
+
+        $this->load->model('Propositions_model', 'propositions');
+        
+        $data['prop'] = $this->propositions->selectById($prop_id);
+
+        if ($vote == 'pour') {
+            $data['prop']->pour++;
+        } else if ($vote == 'contre') {
+            $data['prop']->contre++;
+        } else {
+            echo "on ne peut voter que pour ou contre.";
+        }
+
+        $data = ['id' => $prop_id, 'pour' => $data['prop']->pour, 'contre' => $data['prop']->contre];
+        $this->propositions->updateProp($prop_id, $data);
+
+        $this->load->model('Votes_model', 'votes');
+        $datavote = ['user_id' => $user_id, 'prop_id' => $prop_id];
+        $this->votes->setVote($datavote);
+
+        $this->vote_prop($prop_id);
     }
 
     public function add_comment($prop_id)
@@ -164,9 +193,6 @@ class Back extends CI_Controller
             $data = ['comment' => $comment, 'user_id' => $user_id, 'prop_id' => $prop_id];
             $this->commentaires->add($data);
             $this->vote_prop($prop_id);
-            echo "com ok";
-        } else {
-            echo "erreur";
         }
-    } 
+    }
 }

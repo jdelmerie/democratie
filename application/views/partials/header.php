@@ -11,5 +11,5 @@
 </head>
 
 <div class="bg-info p-4">
-    <h1 class="display-1 text-white text-center">DEMOCRATIE 2.0</h1>
+    <h1 class="display-3 text-white text-center">DEMOCRATIE 2.0</h1>
 </div>

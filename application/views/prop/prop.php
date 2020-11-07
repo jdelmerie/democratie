@@ -16,7 +16,16 @@
         <li>Pour : <?=$prop->pour?></li>
         <li>Contre : <?=$prop->contre?></li>
     </ul>
-    <p class="text-danger font-weight-bold"><?echo $vote ?></p>
+
+    <div style="<?echo $novote ?>">
+        <p class="text-danger font-weight-bold">Vous avez déjà voté pour cette proposition.</p>
+    </div>
+
+    <div style="<?echo $vote ?>">
+        <a href="/back/action?id=<?=$prop->id?>&vote=pour" class="btn btn-success">Voter Pour</a>
+        <a href="/back/action?id=<?=$prop->id?>&vote=contre" class="btn btn-danger">Voter Contre</a>
+    </div>
+    
     <hr>
     <h4>Ajouter un commentaire</h4>
     <form method="POST" action="<?echo base_url("back/add_comment/$prop->id") ?>">

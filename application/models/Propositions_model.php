@@ -58,7 +58,7 @@ class Propositions_model extends CI_Model
         $this->db->select('*');
         $this->db->from('users');
         $this->db->join('propositions', 'users.id = propositions.user_id');
-        $this->db->where('soumission', 1);
+        $this->db->where('propositions.soumission', 1);
         $query = $this->db->get();
         return $query->result();
     }
