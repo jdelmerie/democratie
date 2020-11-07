@@ -26,6 +26,13 @@
         <a href="/back/action?id=<?=$prop->id?>&vote=contre" class="btn btn-danger">Voter Contre</a>
     </div>
     
+<?if ($this->session->flashdata('success_vote')) {?>
+<div class="alert alert-success" role="alert">
+<?echo $this->session->flashdata('success_vote') ?>
+</div>
+<?}?>
+
+
     <hr>
     <h4>Ajouter un commentaire</h4>
     <form method="POST" action="<?echo base_url("back/add_comment/$prop->id") ?>">

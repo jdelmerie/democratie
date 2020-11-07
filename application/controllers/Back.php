@@ -9,6 +9,7 @@ class Back extends CI_Controller
     {
         parent::__construct();
         if ($this->session->userdata('logged_in') != true) {
+            $this->session->set_flashdata('error_co', 'Vous devez être connecté pour accédérer à cette page.');
             return redirect('welcome/index');
         }
     }
@@ -67,13 +68,14 @@ class Back extends CI_Controller
             $this->load->model('Votes_model', 'votes');
             $data = ['user_id' => $user_id, 'title' => $title, 'text' => $text, 'pour' => $pour];
             $this->propositions->addProp($data);
-
             $prop_id = $this->db->insert_id();
             $data = ['user_id' => $user_id, 'prop_id' => $prop_id];
             $this->votes->setVote($data);
+            $this->session->set_flashdata('success', "Proposition ajoutée.");
             redirect('back/dashboard');
         } else {
-            echo "erreur de saisie";
+            $this->session->set_flashdata('error', "Veuillez remplir les champs.");
+            redirect('back/new_prop');
         }
     }
 
@@ -100,9 +102,11 @@ class Back extends CI_Controller
             $this->load->model('Propositions_model', 'propositions');
             $data = ['title' => $title, 'text' => $text];
             $this->propositions->updateProp($prop_id, $data);
+            $this->session->set_flashdata('success', "Proposition modifiée.");
             redirect('back/dashboard');
         } else {
-            echo "erreur";
+            $this->session->set_flashdata('error', "Veuillez remplir les champs.");
+            redirect("back/edit_prop/$prop_id");
         }
     }
 
@@ -111,6 +115,7 @@ class Back extends CI_Controller
         $this->load->model('Propositions_model', 'propositions');
         $data = ['soumission' => 1];
         $this->propositions->soumission($prop_id, $data);
+        $this->session->set_flashdata('success', "Votre proposition a bien été soumise aux votes.");
         redirect('back/dashboard');
     }
 
@@ -119,7 +124,8 @@ class Back extends CI_Controller
         $this->load->model('Propositions_model', 'propositions');
         $data['prop'] = $this->propositions->selectById($prop_id);
         $this->propositions->deleteProp($prop_id);
-        echo "prop supprimé";
+        $this->session->set_flashdata('success', "Votre proposition a bien été supprimée.");
+        redirect('back/dashboard');
     }
 
     public function vote_prop($prop_id)
@@ -172,13 +178,13 @@ class Back extends CI_Controller
             echo "on ne peut voter que pour ou contre.";
         }
 
+
         $data = ['id' => $prop_id, 'pour' => $data['prop']->pour, 'contre' => $data['prop']->contre];
         $this->propositions->updateProp($prop_id, $data);
-
         $this->load->model('Votes_model', 'votes');
         $datavote = ['user_id' => $user_id, 'prop_id' => $prop_id];
         $this->votes->setVote($datavote);
-
+        $this->session->set_flashdata('success_vote', "Votre vote a bien été enregistré.");
         $this->vote_prop($prop_id);
     }
 

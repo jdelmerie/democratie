@@ -12,6 +12,12 @@
         <p>Nombre de propositions : <?=$count?></p>
         <hr>
 
+<?if ($this->session->flashdata('success')) {?>
+<div class="alert alert-success" role="alert">
+<?echo $this->session->flashdata('success') ?>
+</div>
+<?}?>
+
         <?echo $displayuserprop ?>
         <a class="btn btn-success" href="/back/new_prop">Ajouter une proposition</a>
     </div>

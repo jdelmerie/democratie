@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <div class="container">
 
-<h2 class="text-center p-3">Bienvenue. (faire un topo sur le projet)</h2>
+<h2 class="text-center p-3">Bienvenue sur Démocratie 2.0</h2>
 
 	<div class="row p-3">
 
@@ -19,14 +19,36 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<label for="exampleInputPassword1">Mot de passe</label>
 					<input name="password" type="password" class="form-control" id="exampleInputPassword1">
 				</div>
-				<a href="/welcome/forgotten_password">Mot de passe oublié ?</a><br>
+				<a href="/welcome/forgotten_password">Mot de passe oublié ?</a><br><br>
 				<button type="submit" class="btn btn-primary">Se connecter</button>
 			</form>
+
+<?if ($this->session->flashdata('error')) {?>
+<div class="alert alert-danger" role="alert">
+<?echo $this->session->flashdata('error') ?>
+</div>
+<?} else if ($this->session->flashdata('success_signin')) {?>
+<div class="alert alert-success" role="alert">
+<?echo $this->session->flashdata('success_signin') ?>
+</div>
+<?} else if ($this->session->flashdata('success_new_pwd')) {?>
+<div class="alert alert-success" role="alert">
+<?echo $this->session->flashdata('success_new_pwd') ?>
+</div>
+<?} else if ($this->session->flashdata('error_co')) {?>
+<div class="alert alert-danger" role="alert">
+<?echo $this->session->flashdata('error_co') ?>
+</div>
+<?}?>
 		</div>
 
 		<div class="col-6 text-center">
 			<img src="https://img.aws.la-croix.com/2019/05/24/1201024131/Je-votela-liste_0_730_511.jpg" width="350px">
 		</div>
+	</div>
+
+	<div class="text-center p-3">
+		Ce site représente un exercice réalisé en formation afin de travailler le PDO en PHP. Une fois finalisé, j'ai refactoré le projet en utilisant le framework Code Igniter 3 afin d'apprendre ce framework. Il s'agit d'un petit système de votation. L'utilisateur s'inscrit et peut soummettre des propositions aux votes.
 	</div>
 
 	<div class="mt-5 text-justify bg-light p-3 border border-secondary">
@@ -51,5 +73,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<button type="submit" class="btn btn-primary">S'inscrire</button>
 			</div>
 		</form>
+
+<?if ($this->session->flashdata('error_email')) {?>
+<div class="alert alert-danger" role="alert">
+<?echo $this->session->flashdata('error_email') ?>
+</div>
+<?}?>
 	</div>
 </div>

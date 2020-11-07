@@ -37,7 +37,10 @@ class Users_model extends CI_Model
 
     public function addUser($data)
     {
-        $this->db->insert('users', $data);
+        if (!$this->db->insert('users', $data)) {
+            return $this->db->error();
+        }
+        return false;
     }
 
     public function validation($user_id, $data)

@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Welcome extends CI_Controller
 {
-
     public $data = [];
 
     public function index()
@@ -32,10 +31,12 @@ class Welcome extends CI_Controller
                 $this->session->set_userdata($user_session);
                 redirect('back/dashboard');
             } else {
-                echo "connexion pas ok";
+                $this->session->set_flashdata('error', "Erreur de connexion.");
+                redirect('welcome/index');
             }
         } else {
-            echo "connexion pas ok";
+            $this->session->set_flashdata('error', "Erreur de connexion.");
+            redirect('welcome/index');
         }
     }
 
@@ -61,12 +62,19 @@ class Welcome extends CI_Controller
         if ($this->form_validation->run() == true) {
             $this->load->model('Users_model', 'users');
             $data = ['email' => $email, 'pseudo' => $pseudo, 'password' => $hash, 'actif' => 0];
-            $this->users->addUser($data);
-            $user_id = $this->db->insert_id();
-            $this->sendmail($user_id, $hash, $email);
-            redirect('welcome/index');
+
+            if ($this->users->addUser($data)) {
+                $this->session->set_flashdata('error_email', "Cet email est déjà associé à un compte.");
+                redirect('welcome/index');
+            } else {
+                $user_id = $this->db->insert_id();
+                $this->sendmail($user_id, $hash, $email);
+                $this->session->set_flashdata('success_signin', "<strong>Votre compte a bien été créé.</strong><br> Vous allez recevoir un email de validation.");
+                redirect('welcome/index');
+            }
         } else {
-            echo "erreur de saisie";
+            $this->session->set_flashdata('error', "Erreur de saisie");
+            redirect('welcome/index');
         }
     }
 
@@ -76,11 +84,11 @@ class Welcome extends CI_Controller
         $objet = 'Création de compte pour Démocratie 2.0';
         $message = "Pour valider votre compte, cliquez sur le lien : $lien_validation";
 
-        $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'smtp-delmerie.alwaysdata.net';
-        $config['smtp_port'] = 587;
-        $config['smtp_user'] = 'delmerie@alwaysdata.net';
-        $config['smtp_pass'] = 'Sebastian18*"&';
+        $config['protocol'] = PROTOCOL;
+        $config['smtp_host'] = SMTP_HOST;
+        $config['smtp_port'] = SMTP_PORT;
+        $config['smtp_user'] = SMTP_USER;
+        $config['smtp_pass'] = SMTP_PASS;
         $config['charset'] = 'utf-8';
         $config['wordwrap'] = true;
         $this->email->initialize($config);
@@ -128,9 +136,11 @@ class Welcome extends CI_Controller
             $new_password = password_hash($password, PASSWORD_DEFAULT);
             $data = ['password' => $new_password];
             $this->users->updatePwd($data, $email);
-            redirect('dashboard/index');
+            $this->session->set_flashdata('success_new_pwd', 'Votre mot de passe a été modifié, vous pouvez vous connecter.');
+            redirect('welcome/index');
         } else {
-            echo "Erreur";
+            $this->session->set_flashdata('error', "Erreur de saisie");
+            redirect('welcome/index');
         }
     }
 }
