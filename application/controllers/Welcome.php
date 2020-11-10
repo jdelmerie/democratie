@@ -80,7 +80,7 @@ class Welcome extends CI_Controller
 
     public function sendmail($user_id, $hash, $email)
     {
-        $lien_validation = "<a href='http://democratie.local/welcome/checkuser?id=$user_id&hash=$hash'>ICI</a>";
+        $lien_validation = "<a href=".base_url("/welcome/checkuser?id=$user_id&hash=$hash").">ICI</a>";
         $objet = 'Création de compte pour Démocratie 2.0';
         $message = "Pour valider votre compte, cliquez sur le lien : $lien_validation";
 
@@ -93,7 +93,7 @@ class Welcome extends CI_Controller
         $config['wordwrap'] = true;
         $this->email->initialize($config);
 
-        $this->email->from('delmerie@alwaysdata.net', 'No Reply');
+        $this->email->from(SMTP_USER, 'No Reply');
         $this->email->to($email);
         $this->email->subject($objet);
         $this->email->message($message);
