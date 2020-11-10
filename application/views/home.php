@@ -39,6 +39,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div class="alert alert-danger" role="alert">
 <?echo $this->session->flashdata('error_co') ?>
 </div>
+<?} else if ($this->session->flashdata('success_account')) {?>
+<div class="alert alert-success" role="alert">
+<?echo $this->session->flashdata('success_account') ?>
+</div>
 <?}?>
 		</div>
 

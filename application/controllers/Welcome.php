@@ -110,6 +110,7 @@ class Welcome extends CI_Controller
         if ($user->id == $id) {
             $data = ['actif' => 1];
             $this->users->validation($id, $data);
+            $this->session->set_flashdata('success_account', 'Votre compte a bien été validé, vous pouvez vous connecter.');
             redirect('welcome/index');
         }
     }
