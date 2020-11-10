@@ -56,16 +56,10 @@
 
 	require_once 'env.php';
 	 
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	
+	// define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 	// echo ENVIRONMENT;
-
-	// echo "<pre>";
-	// print_r($_SERVER);
-	// echo "</pre>";
-
-
+	
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
