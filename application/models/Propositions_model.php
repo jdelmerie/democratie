@@ -1,61 +1,41 @@
 <?
 class Propositions_model extends CI_Model
 {
-    public function selectUserProp($user_id)
+    public function getUserProps($id)
     {
-        $this->db->select('*');
-        $this->db->from('propositions');
-        $this->db->where('propositions.user_id', $user_id);
-        $query = $this->db->get();
+        $this->db->where('propositions.user_id', $id);
+        $query = $this->db->get('propositions');
         return $query->result();
     }
 
-    public function countProp($user_id)
-    {
-        $this->db->select('*');
-        $this->db->from('propositions');
-        $this->db->where('propositions.user_id', $user_id);
-        $count = $this->db->count_all_results();
-        return $count;
-    }
-
-    public function addProp($data)
+    public function add($data)
     {
         $this->db->insert('propositions', $data);
     }
 
-    public function selectById($id)
+    public function findById($id)
     {
-        $this->db->select('*');
-        $this->db->from('propositions');
         $this->db->where('id', $id);
-        $query = $this->db->get();
-        return $query->result()[0];
+        $query = $this->db->get("propositions");
+        if (count($query->result()) > 0) {
+            return $query->result()[0];
+        }
     }
 
-    public function updateProp($prop_id, $data)
+    public function update($id, $data)
     {
-        $this->db->where('id', $prop_id);
+        $this->db->where('id', $id);
         $this->db->set($data);
         $this->db->update('propositions');
     }
 
-    public function soumission($prop_id, $data)
+    public function delete($id)
     {
-        $this->db->where('id', $prop_id);
-        $this->db->set($data);
-        $this->db->update('propositions');
-    }
-
-    public function deleteProp($prop_id)
-    {
-        $this->db->where('id', $prop_id);
-        $this->db->delete('propositions');
+        $this->db->where('id', $id)->delete('propositions');
     }
 
     public function getAll()
     {
-        $this->db->select('*');
         $this->db->from('users');
         $this->db->join('propositions', 'users.id = propositions.user_id');
         $this->db->where('propositions.soumission', 1);

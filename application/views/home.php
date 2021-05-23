@@ -10,14 +10,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<div class="col-6 text-justify">
 			<h3>Connexion</h3>
-			<form method="POST" action="<? echo base_url('/welcome/login'); ?>">
+			<form method="POST" action="<?echo base_url('/welcome/login'); ?>">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Utilisateur</label>
-					<input name="pseudo" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<input name="pseudo" type="text" value="<?php echo set_value('pseudo'); ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<?php echo form_error('pseudo', ' <small class="text-danger">', '</small>'); ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputPassword1">Mot de passe</label>
 					<input name="password" type="password" class="form-control" id="exampleInputPassword1">
+					<?php echo form_error('password', ' <small class="text-danger">', '</small>'); ?>
 				</div>
 				<a href="/welcome/forgotten_password">Mot de passe oublié ?</a><br><br>
 				<button type="submit" class="btn btn-primary">Se connecter</button>
@@ -27,23 +29,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div class="alert alert-danger" role="alert">
 <?echo $this->session->flashdata('error') ?>
 </div>
-<?} else if ($this->session->flashdata('success_signin')) {?>
+<?} else if ($this->session->flashdata('success')) {?>
 <div class="alert alert-success" role="alert">
-<?echo $this->session->flashdata('success_signin') ?>
-</div>
-<?} else if ($this->session->flashdata('success_new_pwd')) {?>
-<div class="alert alert-success" role="alert">
-<?echo $this->session->flashdata('success_new_pwd') ?>
-</div>
-<?} else if ($this->session->flashdata('error_co')) {?>
-<div class="alert alert-danger" role="alert">
-<?echo $this->session->flashdata('error_co') ?>
-</div>
-<?} else if ($this->session->flashdata('success_account')) {?>
-<div class="alert alert-success" role="alert">
-<?echo $this->session->flashdata('success_account') ?>
+<?echo $this->session->flashdata('success') ?>
 </div>
 <?}?>
+
 		</div>
 
 		<div class="col-6 text-center">
@@ -61,16 +52,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <h5>Pour vous inscrire à notre plateforme et avoir la chance de voter des propostions, veuillez vous inscrire !</h5>
 		</div>
 
-		<form method="POST" action="<? echo base_url('/welcome/signin'); ?>">
+		<form method="POST" action="<?echo base_url('/welcome/signin'); ?>">
 			<div class="row">
 				<div class="col-sm-4">
-					<span>Email<input name="email" type="email" class="form-control"></span>
+					<span>Email
+					 	<?php echo form_error('email', ' <small class="text-danger">', '</small>'); ?>
+						<input name="email" value="<?php echo set_value('email'); ?>" type="email" class="form-control">
+					</span>
 				</div>
 				<div class="col-sm-4">
-					<span>Pseudo<input name="pseudo" type="text" class="form-control"></span>
+					<span>Pseudo
+					 	<?php echo form_error('pseudo', ' <small class="text-danger">', '</small>'); ?>
+						<input name="pseudo" value="<?php echo set_value('pseudo'); ?>"type="text" class="form-control">
+					</span>
 				</div>
 				<div class="col-sm-4">
-					<span>Mot de passe<input name="password" type="password" class="form-control"></span>
+					<span>Mot de passe
+					 	<?php echo form_error('password', ' <small class="text-danger">', '</small>'); ?>
+						<input name="password" type="password" class="form-control">
+					</span>
 				</div>
 			</div><br>
 			<div class="text-right">
@@ -85,3 +85,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <?}?>
 	</div>
 </div>
+
+
+<hr>

@@ -10,7 +10,7 @@ $config = [
         [
             'field' => 'password',
             'label' => 'mot de passe',
-            'rules' => 'required',
+            'rules' => 'required|trim|min_length[8]',
         ],
     ],
 
@@ -18,19 +18,19 @@ $config = [
         [
             'field' => 'email',
             'label' => 'email',
-            'rules' => 'required|valid_email',
+            'rules' => 'required|trim|valid_email|is_unique[users.email]',
         ],
 
         [
             'field' => 'pseudo',
             'label' => 'pseudo',
-            'rules' => 'required',
+            'rules' => 'required|is_unique[users.pseudo]',
         ],
 
         [
             'field' => 'password',
             'label' => 'mot de passe',
-            'rules' => 'required',
+            'rules' => 'required|trim|min_length[8]',
         ],
     ],
 
@@ -38,26 +38,26 @@ $config = [
         [
             'field' => 'email',
             'label' => 'email',
-            'rules' => 'required',
+            'rules' => 'required|trim|valid_email',
         ],
 
         [
             'field' => 'password',
             'label' => 'mot de passe',
-            'rules' => 'required',
+            'rules' => 'required|trim|min_length[8]',
         ],
     ],
 
     'back/add_prop' => [
         [
             'field' => 'title',
-            'label' => 'title',
+            'label' => 'titre',
             'rules' => 'required',
         ],
 
         [
             'field' => 'text',
-            'label' => 'text',
+            'label' => 'texte',
             'rules' => 'required',
         ],
     ],
@@ -79,7 +79,7 @@ $config = [
     'back/add_comment' => [
         [
             'field' => 'comment',
-            'label' => 'comment',
+            'label' => 'commentaire',
             'rules' => 'required',
         ],
     ],
